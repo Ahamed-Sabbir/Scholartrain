@@ -1,0 +1,183 @@
+<div class="signup-wrapper">
+    <div class="signup-container">
+      <h2>Sign Up</h2>
+      <form [formGroup]="userDataForm" (ngSubmit)="saveUser()">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input formControlName="name" type="text" id="name" name="name" placeholder="Enter your name" class="form-control"/>
+          <div *ngIf="userDataForm.get('name')?.invalid && userDataForm.get('name')?.touched">
+            <p *ngIf="userDataForm.get('name')?.hasError('required')" class="error">Name is required</p>
+            <p *ngIf="userDataForm.get('name')?.hasError('minlength')" class="error">Min 3 length</p>
+            <p *ngIf="userDataForm.get('name')?.hasError('maxlength')" class="error">Max 20 length</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="fathersName">Father's Name</label>
+          <input formControlName ="fathersName" type="text" id="fathersName" name="fathersName" placeholder="Enter your father's name" class="form-control"/>
+          <div *ngIf="userDataForm.get('fathersName')?.invalid && userDataForm.get('fathersName')?.touched">
+            <p *ngIf="userDataForm.get('fathersName')?.hasError('required')" class="error">Father's name is required</p>
+            <p *ngIf="userDataForm.get('fathersName')?.hasError('minlength')" class="error">Min 3 length</p>
+            <p *ngIf="userDataForm.get('fathersName')?.hasError('maxlength')" class="error">Max 20 length</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="mothersName">Mother's Name</label>
+          <input type="text" id="mothersName" name="mothersName" formControlName ="mothersName" placeholder="Enter your mother's name" class="form-control"/>
+          <div *ngIf="userDataForm.get('mothersName')?.invalid && userDataForm.get('mothersName')?.touched">
+            <p *ngIf="userDataForm.get('mothersName')?.hasError('required')" class="error">Mother's name is required</p>
+            <p *ngIf="userDataForm.get('mothersName')?.hasError('minlength')" class="error">Min 3 length</p>
+            <p *ngIf="userDataForm.get('mothersName')?.hasError('maxlength')" class="error">Max 20 length</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input formControlName ="email" type="email" id="email" name="email" placeholder="Enter your email" class="form-control"/>
+          <div *ngIf="userDataForm.get('email')?.invalid && userDataForm.get('email')?.touched">
+            <p *ngIf="userDataForm.get('email')?.hasError('required')" class="error">email is required</p>
+            <p *ngIf="userDataForm.get('email')?.hasError('email')" class="error">Invalid Email</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input formControlName ="password" type="password" id="password" name="password" placeholder="Enter your password" class="form-control"/>
+          <div *ngIf="userDataForm.get('password')?.invalid && userDataForm.get('password')?.touched">
+            <p *ngIf="userDataForm.get('password')?.hasError('required')" class="error">password is required</p>
+            <p *ngIf="userDataForm.get('password')?.hasError('pattern')" class="error">Invalid password</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input formControlName ="dob" type="date" id="dob" name="dob" class="form-control"/>
+          <div *ngIf="userDataForm.get('dob')?.invalid && userDataForm.get('dob')?.touched">
+            <p *ngIf="userDataForm.get('dob')?.hasError('required')" class="error">Date of Birth is required</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="phone">Phone (Bangladesh)</label>
+          <input formControlName ="phone" type="text" id="phone" name="phone" placeholder="Enter your phone number" class="form-control"/>
+          <div *ngIf="userDataForm.get('phone')?.invalid && userDataForm.get('phone')?.touched">
+            <p *ngIf="userDataForm.get('phone')?.hasError('required')" class="error">Phone is required</p>
+            <p *ngIf="userDataForm.get('phone')?.hasError('pattern')" class="error">Invalid Phone</p>
+            <p *ngIf="userDataForm.get('phone')?.hasError('maxlength')" class="error">Invalid Phone</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="presentAddress">Present Address</label>
+          <input formControlName ="presentAddress" type="text" id="presentAddress" name="presentAddress" placeholder="Enter your present address" class="form-control"/>
+          <div *ngIf="userDataForm.get('presentAddress')?.invalid && userDataForm.get('presentAddress')?.touched">
+            <p *ngIf="userDataForm.get('presentAddress')?.hasError('required')" class="error">Present Address is required</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="permanentAddress">Permanent Address</label>
+          <input formControlName ="permanentAddress" type="text" id="permanentAddress" name="permanentAddress" placeholder="Enter your permanent address" class="form-control"/>
+          <div *ngIf="userDataForm.get('permanentAddress')?.invalid && userDataForm.get('permanentAddress')?.touched">
+            <p *ngIf="userDataForm.get('permanentAddress')?.hasError('required')" class="error">Permanent Address is required</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="image">Upload Image</label>
+          <input formControlName ="image" type="file" id="image" name="image" class="form-control"/>
+        </div>
+  
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select formControlName ="gender" id="gender" name="gender" class="form-control">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          <div *ngIf="userDataForm.get('gender')?.invalid && userDataForm.get('gender')?.touched">
+            <p *ngIf="userDataForm.get('gender')?.hasError('required')" class="error">Gender is required</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+            <label for="areaOfEducation">Area of Education</label>
+            <select formControlName ="areaOfEducation" id="areaOfEducation" name="areaOfEducation" class="form-control">
+              <option value="information-technology">Information Technology</option>
+              <option value="computer-science">Computer Science</option>
+              <option value="electrical-engineering">Electrical Engineering (EEE)</option>
+              <option value="mechanical-engineering">Mechanical Engineering</option>
+              <option value="civil-engineering">Civil Engineering</option>
+              <option value="business-administration">Business Administration</option>
+              <option value="economics">Economics</option>
+              <option value="law">Law</option>
+              <option value="medicine">Medicine</option>
+              <option value="pharmacy">Pharmacy</option>
+            </select>
+            <div *ngIf="userDataForm.get('areaOfEducation')?.invalid && userDataForm.get('areaOfEducation')?.touched">
+              <p *ngIf="userDataForm.get('areaOfEducation')?.hasError('required')" class="error">Area of Education is required</p>
+            </div>
+        </div>
+  
+        <div class="form-group">
+            <label for="institute">Institute</label>
+            <select formControlName ="institute" id="institute" name="institute" class="form-control">
+              <option value="du">University of Dhaka (DU)</option>
+              <option value="buet">Bangladesh University of Engineering and Technology (BUET)</option>
+              <option value="kuet">Khulna University of Engineering & Technology (KUET)</option>
+              <option value="ruet">Rajshahi University of Engineering & Technology (RUET)</option>
+              <option value="cuet">Chittagong University of Engineering & Technology (CUET)</option>
+              <option value="iut">Islamic University of Technology (IUT)</option>
+              <option value="aiub">American International University-Bangladesh (AIUB)</option>
+              <option value="nsu">North South University (NSU)</option>
+              <option value="brac">BRAC University</option>
+              <option value="diu">Daffodil International University (DIU)</option>
+              <option value="ewu">East West University (EWU)</option>
+              <option value="uiu">United International University (UIU)</option>
+              <option value="uiu">University of Asia Pacific (UAP)</option>
+              <option value="ewu">Jahangirnagar University (JU)</option>
+              <option value="uiu">University of Liberal Arts Bangladesh (ULAB)</option>
+              <option value="ru">Rajshahi University (RU)</option>
+              <option value="ku">Khulna University (KU)</option>
+              <option value="cu">Chittagong University (CU)</option>
+              <option value="ju">Jahangirnagar University (JU)</option>
+              <option value="sust">Shahjalal University of Science & Technology (SUST)</option>
+              <option value="iu">Islamic University (IU)</option>
+              <option value="pu">Pabna University of Science and Technology (PUST)</option>
+              <option value="nstu">Noakhali Science and Technology University (NSTU)</option>
+              <option value="mbstu">Mawlana Bhashani Science and Technology University (MBSTU)</option>
+              <option value="bubt">Bangladesh University of Business and Technology (BUBT)</option>
+            </select>
+            <div *ngIf="userDataForm.get('institute')?.invalid && userDataForm.get('institute')?.touched">
+              <p *ngIf="userDataForm.get('institute')?.hasError('required')" class="error">Institute of Education is required</p>
+            </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input formControlName ="subject" type="text" id="subject" name="subject" placeholder="Enter your subject" class="form-control"/>
+          <div *ngIf="userDataForm.get('subject')?.invalid && userDataForm.get('subject')?.touched">
+            <p *ngIf="userDataForm.get('subject')?.hasError('required')" class="error">Subject of Education is required</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="cgpa">Current CGPA</label>
+          <input formControlName ="cgpa" type="number" id="cgpa" name="cgpa" placeholder="Enter your current CGPA" step="0.01" class="form-control"/>
+          <div *ngIf="userDataForm.get('cgpa')?.invalid && userDataForm.get('cgpa')?.touched">
+            <p *ngIf="userDataForm.get('cgpa')?.hasError('required')" class="error">CGPA is required</p>
+            <p *ngIf="userDataForm.get('cgpa')?.hasError('pattern')" class="error">Invalid CGPA</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="resume">Upload Resume</label>
+          <input formControlName ="resume" type="file" id="resume" name="resume" class="form-control"/>
+        </div>
+  
+        <button type="submit" class="btn-submit" [disabled]="userDataForm.invalid">Sign Up</button>
+      </form>
+    </div>
+</div>
+  

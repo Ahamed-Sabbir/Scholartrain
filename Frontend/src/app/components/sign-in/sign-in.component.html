@@ -1,0 +1,25 @@
+<div class="signin-wrapper">
+    <div class="signin-container">
+      <h2>Sign In</h2>
+      <form [formGroup]="userDataForm" (ngSubmit)="saveUser()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input  type="email" id="email" name="email" formControlName="email" class="form-control"/>
+            <div *ngIf="userDataForm.get('email')?.invalid && userDataForm.get('email')?.touched">
+                <p *ngIf="userDataForm.get('email')?.hasError('required')" class="error">email is required</p>
+                <p *ngIf="userDataForm.get('email')?.hasError('email')" class="error">Invalid Email</p>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" formControlName="password" class="form-control"/>
+            <div *ngIf="userDataForm.get('password')?.invalid && userDataForm.get('password')?.touched">
+                <p *ngIf="userDataForm.get('password')?.hasError('required')" class="error">password is required</p>
+                <p *ngIf="userDataForm.get('password')?.hasError('pattern')" class="error">Invalid password</p>
+            </div>
+        </div>
+        <button type="submit" class="btn-submit" [disabled]="userDataForm.invalid">Sign In</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,68 @@
+@import "../../../styles.scss";
+  
+.signin-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; // Full viewport height
+    width: 100vw;  // Full viewport width
+    position: fixed; // Sticks the form in place even when scrolling
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1); // Optional: background overlay
+}
+  
+.signin-container {
+    max-width: 400px;
+    width: 100%; // Ensure the container takes up full width if needed
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #4CAF50;
+    }
+  
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+  
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #333;
+      }
+  
+      .form-control {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+    }
+  
+    .btn-submit {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+}
+
+.error{
+  color: red;
+}

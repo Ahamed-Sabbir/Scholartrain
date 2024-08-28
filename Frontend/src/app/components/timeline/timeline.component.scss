@@ -1,0 +1,42 @@
+@import "../../../styles.scss";
+
+// Container for layout
+.container {
+    display: flex;
+    height: calc(100vh - 0rem); // Adjust height to account for the navbar
+    padding-top: 4rem; // Adjust for fixed navbar
+  
+    .left-section, .middle-section, .right-section {
+      overflow-y: auto;
+      padding: 1rem;
+    }
+  
+    .left-section {
+      width: 25%;
+      background-color: $secondary-color;
+      color: white;
+    }
+  
+    .middle-section {
+      width: 50%;
+      background-color: white;
+      color: black;
+    }
+  
+    .right-section {
+      width: 25%;
+      background-color: $tertiary-color;
+      color: white;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+  
+      .left-section, .middle-section, .right-section {
+        width: 100%;
+        height: 33.33vh;
+      }
+    }
+  }

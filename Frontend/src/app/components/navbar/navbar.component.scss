@@ -1,0 +1,45 @@
+@import "../../../styles.scss";
+// Navbar styling
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-color;
+  padding: 1rem 2rem;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .auth-links {
+    .nav-link {
+      margin-left: 2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}
+// Responsive design
+@media (max-width: 768px) {
+  .auth-links {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
