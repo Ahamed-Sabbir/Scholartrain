@@ -12,20 +12,20 @@
     }
   
     .left-section {
-      width: 25%;
-      background-color: $secondary-color;
+      width: 30%;
+      background-color: white;
       color: white;
     }
   
     .middle-section {
-      width: 50%;
+      width: 40%;
       background-color: white;
       color: black;
     }
   
     .right-section {
-      width: 25%;
-      background-color: $tertiary-color;
+      width: 30%;
+      background-color: white;
       color: white;
     }
   }
@@ -40,3 +40,203 @@
       }
     }
   }
+
+// --------------------middle----------------------------------------------
+.post-container {
+  width: 100%; // Ensures the post takes up 50% of the parent container
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto; // Centers the post horizontally
+  padding: 15px;
+
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+
+      .profile-picture {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        border: 2px solid #4CAF50;
+        object-fit: cover; // Ensures the image covers the container without distortion
+      }
+
+      .university-info {
+        .university-name {
+          margin: 0;
+          font-size: 18px;
+          color: #333;
+          font-weight: bold;
+        }
+
+        .post-details {
+          margin: 0;
+          font-size: 14px;
+          color: #777;
+        }
+      }
+    }
+
+    .follow-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+  }
+
+  .post-content {
+    margin-bottom: 15px;
+
+    p {
+      font-size: 16px;
+      color: #333;
+      margin: 0 0 10px;
+    }
+
+    .post-image {
+      width: 100%;
+      height: auto;
+      max-height: 300px; // Limits the height to prevent excessive size
+      object-fit: contain; // Scales the image to fit within the container while maintaining aspect ratio
+      border-radius: 8px;
+      margin-top: 10px;
+      display: block;
+
+      // Optional: Add a light border or shadow for better aesthetics
+      // border: 1px solid #ddd;
+      // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .apply-button-container {
+    text-align: center;
+
+    .apply-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .post-container {
+    width: 90%; // Adjusts the width for tablets and smaller devices
+  }
+}
+  
+@media (max-width: 480px) {
+  .post-container {
+    width: 100%; // Full width for mobile devices
+    padding: 10px;
+  }
+
+  .profile-picture {
+    width: 40px;
+    height: 40px;
+  }
+
+  .university-name {
+    font-size: 16px;
+  }
+
+  .post-details {
+    font-size: 12px;
+  }
+
+  .follow-button, .apply-button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+
+// ------------------------left-----------------------------
+.left-section, .right-section {
+  width: 100%;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-right: 1px solid #ddd;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.university-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  .university-profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #4caf50;
+    object-fit: cover;
+  }
+
+  .university-details {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .university-name {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .unfollow-button {
+      background-color: #e74c3c;
+      color: #fff;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #c0392b;
+      }
+    }
+  }
+}
