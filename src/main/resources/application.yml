@@ -10,5 +10,6 @@ spring:
     hibernate:
       ddl-auto: update
 
-
-#minhaj
+jwt:
+  secret: 12345
+  expiry: 3600000
