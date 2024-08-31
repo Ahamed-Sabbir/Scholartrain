@@ -3,8 +3,8 @@
       <h2>Sign Up</h2>
       <form [formGroup]="userDataForm" (ngSubmit)="saveUser()">
         <div class="form-group">
-          <label for="name">Profile Name</label>
-          <input formControlName="name" type="text" id="name" name="name" placeholder="Enter your name" class="form-control"/>
+          <label for="name">University Name</label>
+          <input formControlName="name" type="text" id="name" name="name" placeholder="Enter University name" class="form-control"/>
           <div *ngIf="userDataForm.get('name')?.invalid && userDataForm.get('name')?.touched">
             <p *ngIf="userDataForm.get('name')?.hasError('required')" class="error">Name is required</p>
             <p *ngIf="userDataForm.get('name')?.hasError('minlength')" class="error">Min 3 length</p>

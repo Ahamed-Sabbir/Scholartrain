@@ -1,0 +1,55 @@
+@import "../../../styles.scss";
+
+.signup-selection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    text-align: center;
+  
+    h2 {
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+  
+    .buttons-container {
+      display: flex;
+      gap: 20px;
+    }
+  
+    .signup-button {
+      width: 150px;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+  
+    .student-button {
+      background-color: #4caf50;
+  
+      &:hover {
+        background-color: #45a049;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+  
+    .university-button {
+      background-color: #2196f3;
+  
+      &:hover {
+        background-color: #1e88e5;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+  

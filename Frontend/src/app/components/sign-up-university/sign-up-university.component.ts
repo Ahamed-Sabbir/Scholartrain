@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.scss'
+  selector: 'app-sign-up-university',
+  templateUrl: './sign-up-university.component.html',
+  styleUrl: './sign-up-university.component.scss'
 })
-export class SignUpComponent {
+export class SignUpUniversityComponent {
   userDataForm: FormGroup = this.formBuilder.group({
     name: [
       '', 

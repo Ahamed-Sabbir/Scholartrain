@@ -9,6 +9,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SignUpUniversityComponent } from './components/sign-up-university/sign-up-university.component';
+import { TypeOfUserComponent } from './components/type-of-user/type-of-user.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     FooterComponent,
     SignInComponent,
     SignUpComponent,
+    SignUpUniversityComponent,
+    TypeOfUserComponent,
   ],
   imports: [
     BrowserModule,

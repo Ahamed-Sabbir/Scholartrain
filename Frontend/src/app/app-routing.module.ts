@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SignUpUniversityComponent } from './components/sign-up-university/sign-up-university.component';
+import { TypeOfUserComponent } from './components/type-of-user/type-of-user.component';
 
 const routes: Routes = [
   {
@@ -14,8 +16,16 @@ const routes: Routes = [
     component:TimelineComponent,
   },
   {
-    path:'signup',
+    path:'signup/student',
     component:SignUpComponent,
+  },
+  {
+    path:'signup/university',
+    component:SignUpUniversityComponent,
+  },
+  {
+    path:'signup',
+    component:TypeOfUserComponent,
   },
   {
     path: '**',
