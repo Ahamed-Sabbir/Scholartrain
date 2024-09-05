@@ -1,7 +1,11 @@
-<div class="signup-selection-container">
-    <h2>Select Your Signup Type</h2>
-    <div class="buttons-container">
-      <button class="signup-button student-button" (click)="onSignup('student')">Student</button>
-      <button class="signup-button university-button" (click)="onSignup('university')">University</button>
-    </div>
+<div class="container">
+  <div class="card">
+    <h1>For <span class="highlight">University</span></h1>
+    <button class="signin-button" (click)="onSignup('university')">Sign Up</button>
+  </div>
+
+  <div class="card">
+    <h1>For <span class="highlight">Students</span></h1>
+    <button class="signin-button" (click)="onSignup('student')">Sign Up</button>
+  </div>
 </div>
