@@ -61,6 +61,19 @@ public class SecurityController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @PostMapping("/validateToken")
+    public ResponseEntity<?> validateToken(@RequestParam String token){
+        Map<String, Object> response = new HashMap<>();
+        if(jwtUtil.validateJwtToken(token)){
+            response.put("isValid", true);
+            response.put("message", "valid token");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        response.put("isValid", false);
+        response.put("message", "invalid token");
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         Map<String, Object> response = new HashMap<>();
@@ -74,6 +87,8 @@ public class SecurityController {
             //create jwt token
             response.put("token", jwtUtil.generateToken(userDetails));
             response.put("username", user.getUsername());
+            System.out.println(user.getProfileName());
+            response.put("profileName", userService.findUserProfileName(user.getUsername()));
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
         catch (Exception ex){

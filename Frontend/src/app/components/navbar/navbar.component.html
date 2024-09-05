@@ -3,7 +3,9 @@
       ScholarTrain
     </div>
     <div class="auth-links">
-      <a routerLink="/signup" class="nav-link">Sign Up</a>
-      <a routerLink="/" class="nav-link">Sign In</a>
+      <a *ngIf="!authService.gotToken()" routerLink="/signup" class="nav-link">Sign Up</a>
+      <a *ngIf="!authService.gotToken()" routerLink="/" class="nav-link">Sign In</a>
+      <a *ngIf="authService.gotToken()" routerLink="/dashboard" class="nav-link">{{authService.getProfileName()}}</a>
+      <a *ngIf="authService.gotToken()" routerLink="" (click)="logout()" class="nav-link">Sign Out</a>
     </div>
 </nav>

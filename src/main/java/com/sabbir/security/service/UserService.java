@@ -25,6 +25,10 @@ public class UserService {
         return userRepo.findByUsernameIgnoreCase(username);
     }
 
+    public String findUserProfileName(String username){
+        return userRepo.findByUsernameIgnoreCase(username).getProfileName();
+    }
+
     public void saveStudent(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Authority authority = authorityRepo.findByAuthority("ROLE_STUDENT");
