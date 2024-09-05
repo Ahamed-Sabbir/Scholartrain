@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #4CAF50; // Use the same primary color as your main navbar
+  background-color: $primary-color; // Use the same primary color as your main navbar
   padding: 1rem 2rem;
   color: white;
   position: fixed;
