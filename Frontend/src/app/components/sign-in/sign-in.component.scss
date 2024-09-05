@@ -4,14 +4,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; // Full viewport height
+    margin-top: 80px;
+    height: auto; // Full viewport height
     width: 100vw;  // Full viewport width
-    position: fixed; // Sticks the form in place even when scrolling
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.1); // Optional: background overlay
 }
-  
+
 .signin-container {
     max-width: 400px;
     width: 100%; // Ensure the container takes up full width if needed
