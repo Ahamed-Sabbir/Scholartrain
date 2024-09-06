@@ -87,7 +87,6 @@ public class SecurityController {
             //create jwt token
             response.put("token", jwtUtil.generateToken(userDetails));
             response.put("username", user.getUsername());
-            System.out.println(user.getProfileName());
             response.put("profileName", userService.findUserProfileName(user.getUsername()));
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }

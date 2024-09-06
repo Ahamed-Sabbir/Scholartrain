@@ -1,20 +1,21 @@
 <div class="signup-wrapper">
     <div class="signup-container">
       <h2>Sign Up</h2>
-      <form [formGroup]="userDataForm" (ngSubmit)="saveUser()">
+      <form [formGroup]="userDataForm" (ngSubmit)="registerStudent()">
+        <div *ngIf="text" class="alert">{{ text }}</div>
         <div class="form-group">
-          <label for="name">Profile Name</label>
-          <input formControlName="name" type="text" id="name" name="name" placeholder="Enter your name" class="form-control"/>
-          <div *ngIf="userDataForm.get('name')?.invalid && userDataForm.get('name')?.touched">
-            <p *ngIf="userDataForm.get('name')?.hasError('required')" class="error">Name is required</p>
-            <p *ngIf="userDataForm.get('name')?.hasError('minlength')" class="error">Min 3 length</p>
-            <p *ngIf="userDataForm.get('name')?.hasError('maxlength')" class="error">Max 20 length</p>
+          <label for="profileName">Profile Name</label>
+          <input formControlName="profileName" type="text" [(ngModel)]="profileName" id="profileName" name="profileName" placeholder="Enter your name" class="form-control"/>
+          <div *ngIf="userDataForm.get('profileName')?.invalid && userDataForm.get('profileName')?.touched">
+            <p *ngIf="userDataForm.get('profileName')?.hasError('required')" class="error">Name is required</p>
+            <p *ngIf="userDataForm.get('profileName')?.hasError('minlength')" class="error">Min 3 length</p>
+            <p *ngIf="userDataForm.get('profileName')?.hasError('maxlength')" class="error">Max 20 length</p>
           </div>
         </div>
         
         <div class="form-group">
           <label for="username">Username</label>
-          <input formControlName ="username" type="username" id="username" name="username" placeholder="Enter username" class="form-control"/>
+          <input formControlName ="username" type="text" id="username" [(ngModel)]="username" name="username" placeholder="Enter username" class="form-control"/>
           <div *ngIf="userDataForm.get('username')?.invalid && userDataForm.get('username')?.touched">
             <p *ngIf="userDataForm.get('username')?.hasError('required')" class="error">Name is required</p>
             <p *ngIf="userDataForm.get('username')?.hasError('minlength')" class="error">Min 3 length</p>
@@ -25,7 +26,7 @@
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input formControlName ="password" type="password" id="password" name="password" placeholder="Enter your password" class="form-control"/>
+          <input formControlName ="password" type="password" [(ngModel)]="password" id="password" name="password" placeholder="Enter your password" class="form-control"/>
           <div *ngIf="userDataForm.get('password')?.invalid && userDataForm.get('password')?.touched">
             <p *ngIf="userDataForm.get('password')?.hasError('required')" class="error">password is required</p>
             <p *ngIf="userDataForm.get('password')?.hasError('pattern')" class="error">Invalid password</p>
