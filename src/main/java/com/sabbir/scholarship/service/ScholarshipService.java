@@ -22,4 +22,9 @@ public class ScholarshipService {
     public Page<Scholarship> getPaginatedScholarships(Pageable pageable) {
         return scholarshipRepository.findAll(pageable);
     }
+
+    @Transactional
+    public Scholarship getScholarshipById(Long id) {
+        return scholarshipRepository.findById(id).orElse(null);
+    }
 }

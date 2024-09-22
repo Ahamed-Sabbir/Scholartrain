@@ -1,0 +1,26 @@
+<div class="scholarship-details">
+    <div class="header">
+      <h1>{{ scholarShip.title }}</h1>
+      <span class="deadline">Deadline: {{ scholarShip.deadline | date:'mediumDate' }}</span>
+    </div>
+  
+    <div *ngIf="scholarShip.imageUrl" class="image-container">
+      <img [src]="scholarShip.imageUrl" alt="{{ scholarShip.title }} image" class="scholarship-image" />
+    </div>
+  
+    <div class="content">
+      <h3>Eligibility</h3>
+      <p>{{ scholarShip.eligibility }}</p>
+  
+      <h3>Description</h3>
+      <p>{{ scholarShip.description }}</p>
+  
+      <h3>Tags</h3>
+      <div class="tags">
+        <span *ngFor="let tag of scholarShip.tags" class="tag">{{ tag.tag }}</span>
+      </div>
+  
+      <a [href]="scholarShip.link" target="_blank" class="apply-button">Apply Now</a>
+    </div>
+  </div>
+  

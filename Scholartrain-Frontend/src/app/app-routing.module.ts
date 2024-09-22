@@ -7,6 +7,7 @@ import { SignUpUniversityComponent } from './pages/sign-up-university/sign-up-un
 import { TypeOfUserComponent } from './pages/type-of-user/type-of-user.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { PostComponent } from './features/post/post.component';
+import { ScholarshipDetailsComponent } from './features/scholarship-details/scholarship-details.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path:'test',
     component:PostComponent
+  },
+  {
+    path:'details',
+    component:ScholarshipDetailsComponent
   },
   {
     path:'signup/student',

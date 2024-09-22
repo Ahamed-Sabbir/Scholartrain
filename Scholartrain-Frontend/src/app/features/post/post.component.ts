@@ -37,7 +37,7 @@ export class PostComponent implements OnInit {
     if (this.loading || !this.hasMore) return; // Prevent multiple requests
     this.loading = true;
 
-    this.scholarshipService.getScholarships(this.page, this.size).subscribe({
+    this.scholarshipService.getAllScholarships(this.page, this.size).subscribe({
       next: (data) => {
         if (data.content.length > 0) {
           this.scholarships = [...this.scholarships, ...data.content]; // Append new data

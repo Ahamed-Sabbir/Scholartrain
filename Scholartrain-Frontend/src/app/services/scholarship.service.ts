@@ -11,10 +11,14 @@ export class ScholarshipService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getScholarships(page: number, size: number): Observable<any> {
+  getAllScholarships(page: number, size: number): Observable<any> {
     let params = new HttpParams()
       .set('page', page)
       .set('size', size);
     return this.httpClient.get<any>(`${this.apiUrl}/all`,{params});
+  }
+
+  getScholarshipById(id:number): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/${id}`);
   }
 }

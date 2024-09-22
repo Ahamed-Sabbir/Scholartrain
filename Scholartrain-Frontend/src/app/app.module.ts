@@ -15,6 +15,7 @@ import { TimelineUniversityComponent } from './features/timeline-university/time
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PostComponent } from './features/post/post.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ScholarshipDetailsComponent } from './features/scholarship-details/scholarship-details.component';
 
 @NgModule({ 
     declarations: [
@@ -28,6 +29,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         TypeOfUserComponent,
         TimelineUniversityComponent,
         PostComponent,
+        ScholarshipDetailsComponent,
     ],
     bootstrap: [AppComponent], 
     imports: [
