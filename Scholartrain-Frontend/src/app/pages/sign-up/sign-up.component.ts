@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.scss'
+  styleUrls: ['./sign-up.component.scss']  // Fixed 'styleUrl' to 'styleUrls'
 })
 export class SignUpComponent {
 
@@ -15,44 +15,43 @@ export class SignUpComponent {
   password: string = '';
   text: string = '';
   
-  userDataForm: FormGroup = this.formBuilder.group({
-    profileName: [
-      '', 
-      [Validators.required, Validators.maxLength(20), Validators.minLength(3)],
-    ],
-    username: [
-      '', 
-      [Validators.required, Validators.maxLength(20), Validators.minLength(3),
-        Validators.pattern(
-          /^\S+$/
-      )],
-    ],
-    password: [
-      '',
-      [Validators.required,
-      Validators.pattern(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-      )],
-    ],
-  });
+  userDataForm: FormGroup;
+
   constructor(
     private authService: AuthServiceService,
     private router: Router,
     private formBuilder: FormBuilder,
-  ){}
+  ) {
+    this.userDataForm = this.formBuilder.group({
+      profileName: [
+        '', 
+        [Validators.required, Validators.maxLength(20), Validators.minLength(3)],
+      ],
+      username: [
+        '', 
+        [Validators.required, Validators.maxLength(20), Validators.minLength(3),
+          Validators.pattern(/^\S+$/)],
+      ],
+      password: [
+        '',
+        [Validators.required,
+          Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)],
+      ],
+    });
+  }
 
-  saveUser(){
+  saveUser() {
     console.log(this.userDataForm.value);
     this.userDataForm.reset();
   }
 
-  registerStudent(): void{
+  registerStudent(): void {
     this.authService.registerStudent(this.profileName, this.username, this.password).subscribe({
-      next: (response) => {
-        this.text='';
+      next: (response: any) => {
+        this.text = '';
         this.router.navigate(['']);
       },
-      error:(error) => {
+      error: (error: any) => {
         this.text = error.error.message;
       },
       complete: () => {
@@ -60,5 +59,4 @@ export class SignUpComponent {
       }
     });
   }
-
 }

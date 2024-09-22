@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrl: './sign-in.component.scss'
+  styleUrls: ['./sign-in.component.scss']  // Fixed 'styleUrl' to 'styleUrls'
 })
 export class SignInComponent implements OnInit {
 
@@ -14,24 +14,26 @@ export class SignInComponent implements OnInit {
   password: string = '';
   errorText: string = '';
 
-  userDataForm: FormGroup = this.formBuilder.group({
-    username: [
-      '',
-      [Validators.required],  
-    ],
-    password:[
-      '',
-      [Validators.required],
-    ]
-  });
+  userDataForm: FormGroup;
 
   constructor(
     private authService: AuthServiceService,
     private formBuilder: FormBuilder, 
     private router: Router,
-  ){}
+  ) {
+    this.userDataForm = this.formBuilder.group({
+      username: [
+        '',
+        [Validators.required],  
+      ],
+      password: [
+        '',
+        [Validators.required],
+      ]
+    });
+  }
 
-  saveUser(){
+  saveUser() {
     console.log(this.userDataForm.value);
     this.userDataForm.reset();
   }
@@ -39,22 +41,21 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
     // Check if the user is already authenticated and redirect if so
     this.authService.isTokenOkay();
-    if(this.authService.getToken() != null){
+    if (this.authService.getToken() != null) {
       this.router.navigate(['/dashboard']); // Redirect to dashboard if already logged in
     }
   }
   
   Login(): void {
     this.authService.login(this.username, this.password).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         this.authService.setToken(response.token, response.profileName);
-        this.router.navigate(['/dashboard']); // Redirect after successful login
+        this.router.navigate(['/dashboard']);
       },
-      error: (err) => {
-        console.error('Login failed', err);
-        this.errorText = 'Invalid Credential';
+      error: (response: any) => {
+        console.error('Login Failed', response);
+        this.errorText = "Invalid Credential";
       }
     });
   }
-
 }

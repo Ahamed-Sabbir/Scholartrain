@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, EMPTY, map, Observable, of } from 'rxjs';
+import { catchError, EMPTY, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +68,7 @@ export class AuthServiceService {
     else{
       const params = new HttpParams().set('token', token);
       this.http.post<{isValid: boolean}>(`${this.baseUrl}/validateToken`,null, {params}).pipe(
+        ///check this
         map(response =>{
           if(response.isValid){
             console.log('ok ok token ok');
