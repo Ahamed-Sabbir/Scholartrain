@@ -12,30 +12,23 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { SignUpUniversityComponent } from './pages/sign-up-university/sign-up-university.component';
 import { TypeOfUserComponent } from './pages/type-of-user/type-of-user.component';
 import { TimelineUniversityComponent } from './features/timeline-university/timeline-university.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PostComponent } from './features/post/post.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    TimelineComponent,
-    FooterComponent,
-    SignInComponent,
-    SignUpComponent,
-    SignUpUniversityComponent,
-    TypeOfUserComponent,
-    TimelineUniversityComponent,
-    PostComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        NavbarComponent,
+        TimelineComponent,
+        FooterComponent,
+        SignInComponent,
+        SignUpComponent,
+        SignUpUniversityComponent,
+        TypeOfUserComponent,
+        TimelineUniversityComponent,
+        PostComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
