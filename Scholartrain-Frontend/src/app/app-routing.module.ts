@@ -24,7 +24,7 @@ const routes: Routes = [
     component:PostComponent
   },
   {
-    path:'details',
+    path:'scholarship-details',
     component:ScholarshipDetailsComponent
   },
   {

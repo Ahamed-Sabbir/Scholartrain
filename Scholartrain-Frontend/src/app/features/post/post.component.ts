@@ -26,6 +26,7 @@ export class PostComponent implements OnInit {
   loading = false;
   hasMore = true; // Track if more scholarships are available
   scrollDistance = 2;
+  scholarshipId:string = "scholarshipId";
 
   constructor(private router: Router, private scholarshipService: ScholarshipService) { }
 
@@ -86,6 +87,7 @@ export class PostComponent implements OnInit {
   }
 
   viewDetails(id: number): void {
-    this.router.navigate(['/scholarship', id]);
+    localStorage.setItem(this.scholarshipId, JSON.stringify(id));
+    this.router.navigate(['/scholarship-details']);
   }
 }
