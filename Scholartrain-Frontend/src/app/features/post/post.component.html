@@ -1,5 +1,9 @@
-<div class="post-card-container" *ngFor="let scholarship of scholarships">
-  <div class="post-card" >
+<div class="post-card-container" *ngFor="let scholarship of scholarships" infiniteScroll 
+     [infiniteScrollDistance]="scrollDistance" 
+     (scrolled)="onScroll()" 
+     [infiniteScrollUpDistance]="1" 
+     [infiniteScrollThrottle]="3000">
+  <div class="post-card">
     <!-- Image Section -->
     <div class="post-image" *ngIf="scholarship.imageUrl" (click)="viewDetails(scholarship.id)">
       <img [src]="scholarship.imageUrl" alt="{{ scholarship.title }} image">
@@ -22,7 +26,7 @@
         <p><strong>Eligibility:</strong> {{ scholarship.eligibility }}</p>
         <p>{{ scholarship.description | slice:0:60 }}... <a (click)="viewDetails(scholarship.id)">See Details</a></p>
         <div class="post-tags">
-          <span *ngFor="let tag of scholarship.tags" class="tag">{{ tag }}</span>
+          <span *ngFor="let tag of scholarship.tags" class="tag">{{ tag.tag }}</span>
         </div>
       </div>
 

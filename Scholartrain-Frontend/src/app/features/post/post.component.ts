@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // For navigation
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { ScholarshipService } from '../../services/scholarship.service';
 
-interface Scholarship {
+export interface Scholarship {
   id: number;
   title: string;
   deadline: Date;
   eligibility: string;
   description: string;
-  tags: string[];
+  tags: any[];
   imageUrl?: string;
   link: string;
 }
@@ -20,46 +21,52 @@ interface Scholarship {
 export class PostComponent implements OnInit {
 
   scholarships: Scholarship[] = [];
+  page = 0;
+  size = 10;
+  loading = false;
+  hasMore = true; // Track if more scholarships are available
+  scrollDistance = 2;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private scholarshipService: ScholarshipService) { }
 
   ngOnInit(): void {
-    this.fetchScholarships();
+    this.loadScholarships();
   }
 
-  fetchScholarships(): void {
-    this.scholarships = [
-      {
-        id: 1,
-        title: 'Fullbright Scholarship',
-        deadline: new Date('2024-12-01'),
-        eligibility: 'Open to graduate students worldwide',
-        description: 'The Fullbright Scholarship provides full funding for graduate studies abroad.',
-        tags: ['Graduate', 'International', 'Full Funding'],
-        imageUrl: 'https://i.postimg.cc/wvWyGF7r/dosa.jpg',
-        link: 'https://fullbright.org/apply'
+  loadScholarships(): void {
+    if (this.loading || !this.hasMore) return; // Prevent multiple requests
+    this.loading = true;
+
+    this.scholarshipService.getScholarships(this.page, this.size).subscribe({
+      next: (data) => {
+        if (data.content.length > 0) {
+          this.scholarships = [...this.scholarships, ...data.content]; // Append new data
+          this.page++;
+        } else {
+          this.hasMore = false; // No more data available
+        }
+        this.loading = false;
       },
-      {
-        id: 2,
-        title: 'DAAD Scholarship',
-        deadline: new Date('2024-10-15'),
-        eligibility: 'Undergraduate and graduate students in Germany',
-        description: 'The DAAD Scholarship is for international students wanting to study in Germany.',
-        tags: ['Undergraduate', 'Graduate', 'Germany'],
-        imageUrl: 'https://i.postimg.cc/wvWyGF7r/dosa.jpg',
-        link: 'https://daad.de/apply'
-      },
-      {
-        id: 2,
-        title: 'DAAD Scholarship',
-        deadline: new Date('2024-10-15'),
-        eligibility: 'Undergraduate and graduate students in Germany',
-        description: 'The DAAD Scholarship is for international students wanting to study in Germany.',
-        tags: ['Undergraduate', 'Graduate', 'Germany'],
-        imageUrl: 'https://i.postimg.cc/wvWyGF7r/dosa.jpg',
-        link: 'https://daad.de/apply'
+      error: (error) => {
+        console.error('Error fetching scholarships:', error);
+        this.loading = false;
       }
-    ];
+    });
+  }
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const lastScholarship = document.querySelector('.post-card-container:last-child') as HTMLElement;
+
+    if (lastScholarship) {
+      const lastScholarshipRect = lastScholarship.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Check if the last scholarship is in the viewport
+      if (lastScholarshipRect.bottom <= windowHeight && this.hasMore) {
+        this.loadScholarships(); // Load more scholarships if the last one is visible
+      }
+    }
   }
 
   apply(link: string): void {
@@ -78,7 +85,6 @@ export class PostComponent implements OnInit {
     console.log(`Share post with ID: ${id}`);
   }
 
-  // Navigate to details page
   viewDetails(id: number): void {
     this.router.navigate(['/scholarship', id]);
   }

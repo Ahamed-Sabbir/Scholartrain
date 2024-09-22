@@ -14,8 +14,10 @@ import { TypeOfUserComponent } from './pages/type-of-user/type-of-user.component
 import { TimelineUniversityComponent } from './features/timeline-university/timeline-university.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PostComponent } from './features/post/post.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-@NgModule({ declarations: [
+@NgModule({ 
+    declarations: [
         AppComponent,
         NavbarComponent,
         TimelineComponent,
@@ -27,8 +29,13 @@ import { PostComponent } from './features/post/post.component';
         TimelineUniversityComponent,
         PostComponent,
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent], 
+    imports: [
+        BrowserModule,
         AppRoutingModule,
         FormsModule,
-        ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        ReactiveFormsModule,
+        InfiniteScrollModule,
+    ], 
+    providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

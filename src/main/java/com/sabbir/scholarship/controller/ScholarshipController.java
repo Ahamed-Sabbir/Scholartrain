@@ -26,12 +26,4 @@ public class ScholarshipController {
         Pageable pageable = PageRequest.of(page, size);
         return scholarshipService.getPaginatedScholarships(pageable);
     }
-
-    @GetMapping("/all")
-    public Page<Scholarship> asdf(@RequestParam(defaultValue = "0") int page,
-                                                @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return scholarshipService.getPaginatedScholarships(pageable);
-    }
-
 }
