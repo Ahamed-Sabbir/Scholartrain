@@ -13,6 +13,7 @@ import { SignUpUniversityComponent } from './pages/sign-up-university/sign-up-un
 import { TypeOfUserComponent } from './pages/type-of-user/type-of-user.component';
 import { TimelineUniversityComponent } from './features/timeline-university/timeline-university.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PostComponent } from './features/post/post.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     SignUpUniversityComponent,
     TypeOfUserComponent,
     TimelineUniversityComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,

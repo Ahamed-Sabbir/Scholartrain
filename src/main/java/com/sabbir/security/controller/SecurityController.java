@@ -27,6 +27,11 @@ public class SecurityController {
         this.authenticationManager = authenticationManager;
     }
 
+    @GetMapping("/alll")
+    public String aa() {
+        return "sadf";
+    }
+
     @PostMapping("/student/registration")
     public ResponseEntity<?> StudentRegistration(@RequestBody User user){
         Map<String, Object> response = new HashMap<>();
