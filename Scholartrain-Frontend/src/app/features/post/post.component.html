@@ -32,7 +32,10 @@
 
       <!-- Apply Button -->
       <div class="apply-section">
-        <button class="apply-btn" (click)="apply(scholarship.link)">Apply Now</button>
+        <!-- <button class="apply-btn" (click)="apply(scholarship.id)">Apply Now</button> -->
+        <button class="apply-btn" *ngIf="!scholarship.isApplied" (click)="apply(scholarship.id)">Apply</button>
+        <button class="apply-btn" *ngIf="scholarship.isApplied" disabled>Applied</button>
+
       </div>
     </div>
 

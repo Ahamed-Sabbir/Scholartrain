@@ -3,6 +3,7 @@ package com.sabbir.scholarship.service;
 import com.sabbir.scholarship.model.Scholarship;
 import com.sabbir.scholarship.repository.ScholarshipRepository;
 
+import com.sabbir.security.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,4 +28,19 @@ public class ScholarshipService {
     public Scholarship getScholarshipById(Long id) {
         return scholarshipRepository.findById(id).orElse(null);
     }
+
+    public Scholarship createScholarship (Scholarship scholarship) {
+        return scholarshipRepository.save(scholarship);
+    }
+
+    public Scholarship findById(Long id) {
+        return scholarshipRepository.findById(id).orElse(null);
+    }
+
+    public List<Scholarship> findAll() {
+        return scholarshipRepository.findAll();
+    }
+     public List<Scholarship> findByCreator(User creator) {
+        return scholarshipRepository.findByCreator(creator);
+     }
 }

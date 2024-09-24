@@ -12,10 +12,12 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { SignUpUniversityComponent } from './pages/sign-up-university/sign-up-university.component';
 import { TypeOfUserComponent } from './pages/type-of-user/type-of-user.component';
 import { TimelineUniversityComponent } from './features/timeline-university/timeline-university.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { PostComponent } from './features/post/post.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ScholarshipDetailsComponent } from './features/scholarship-details/scholarship-details.component';
+import { CreateScholarshipComponent } from './features/create-scholarship/create-scholarship.component';
+import { authInterceptor } from './services/auth.interceptor';
 
 @NgModule({ 
     declarations: [
@@ -30,6 +32,7 @@ import { ScholarshipDetailsComponent } from './features/scholarship-details/scho
         TimelineUniversityComponent,
         PostComponent,
         ScholarshipDetailsComponent,
+        CreateScholarshipComponent,
     ],
     bootstrap: [AppComponent], 
     imports: [
@@ -39,5 +42,8 @@ import { ScholarshipDetailsComponent } from './features/scholarship-details/scho
         ReactiveFormsModule,
         InfiniteScrollModule,
     ], 
-    providers: [provideHttpClient(withInterceptorsFromDi())] })
+    providers: [
+        provideHttpClient(withInterceptors([authInterceptor]))
+    ] 
+})
 export class AppModule { }

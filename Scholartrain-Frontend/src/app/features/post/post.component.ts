@@ -11,6 +11,8 @@ export interface Scholarship {
   tags: any[];
   imageUrl?: string;
   link: string;
+  creator:any;
+  isApplied:boolean;
 }
 
 @Component({
@@ -69,9 +71,17 @@ export class PostComponent implements OnInit {
       }
     }
   }
-
-  apply(link: string): void {
-    window.open(link, '_blank');
+  apply(scholarshipId:number){
+    this.scholarshipService.applyToScholarship(scholarshipId).subscribe({
+      next: (response)=>{
+        console.log(response);
+        alert("Applied to scholarship successfully!");
+      },
+      error: (response)=>{
+        console.error(response);
+        alert("Failed to apply to scholarship.");
+      }
+    });
   }
 
   likePost(id: number): void {

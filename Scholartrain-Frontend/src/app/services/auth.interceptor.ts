@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  debugger;
+  // debugger;
   let dummy = req;
   const token = localStorage.getItem('authToken');
   if (token) {
@@ -9,7 +9,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       setHeaders: {
         Authorization : `Bearer ${token}`,
         'Access-Control-Allow-Origin': '*'
-        
       }
     });
   }

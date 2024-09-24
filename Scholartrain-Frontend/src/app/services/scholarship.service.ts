@@ -21,4 +21,20 @@ export class ScholarshipService {
   getScholarshipById(id:number): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/${id}`);
   }
+
+  createScholarship(scholarship: any): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}/create`, scholarship);
+  }
+
+  applyToScholarship(id: number): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}/apply/${id}`, {});
+  }
+
+  getAppliedScholarships(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.apiUrl}/applied`);
+  }
+
+  getMyScholarships(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.apiUrl}/my-scholarships`);
+  }
 }
