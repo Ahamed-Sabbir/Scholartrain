@@ -76,6 +76,11 @@ export class PostComponent implements OnInit {
       next: (response)=>{
         console.log(response);
         alert("Applied to scholarship successfully!");
+
+        const appliedScholarship = this.scholarships.find(s => s.id === scholarshipId);
+        if (appliedScholarship) {
+          appliedScholarship.isApplied = true;
+        }
       },
       error: (response)=>{
         console.error(response);

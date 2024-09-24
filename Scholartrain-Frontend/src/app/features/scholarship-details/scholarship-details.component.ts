@@ -13,6 +13,7 @@ export interface Scholarship {
   tags: any[];
   imageUrl?: string;
   link: string;
+  isApplied:boolean;
 }
 
 @Component({
@@ -56,5 +57,22 @@ export class ScholarshipDetailsComponent implements OnInit {
     else{
       this.router.navigate(['/test']);
     }
+  }
+  apply(scholarshipId:number){
+    this.scholarshipService.applyToScholarship(this.id).subscribe({
+      next: (response)=>{
+        console.log(response);
+        alert("Applied to scholarship successfully!");
+
+        const appliedScholarship = (this.scholarship.id === scholarshipId);
+        if (appliedScholarship) {
+          this.scholarship.isApplied = true;
+        }
+      },
+      error: (response)=>{
+        console.error(response);
+        alert("Failed to apply to scholarship.");
+      }
+    });
   }
 }

@@ -1,9 +1,12 @@
 package com.sabbir.scholarship.service;
 
+import com.sabbir.scholarship.dto.ScholarshipDto;
 import com.sabbir.scholarship.model.Scholarship;
+import com.sabbir.scholarship.model.Tag;
 import com.sabbir.scholarship.repository.ScholarshipRepository;
 
 import com.sabbir.security.model.User;
+import com.sabbir.security.repository.UserRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,12 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ScholarshipService {
     private final ScholarshipRepository scholarshipRepository;
-    public ScholarshipService(ScholarshipRepository scholarshipRepository) {
+    private final UserRepo userRepo;
+    public ScholarshipService(ScholarshipRepository scholarshipRepository, UserRepo userRepo) {
         this.scholarshipRepository = scholarshipRepository;
+        this.userRepo = userRepo;
     }
 
     @Transactional
@@ -24,10 +30,68 @@ public class ScholarshipService {
         return scholarshipRepository.findAll(pageable);
     }
 
-    @Transactional
-    public Scholarship getScholarshipById(Long id) {
-        return scholarshipRepository.findById(id).orElse(null);
+//    @Transactional
+//    public Scholarship getScholarshipById(Long id) {
+//        return scholarshipRepository.findById(id).orElse(null);
+//    }
+@Transactional
+public ScholarshipDto getScholarshipById(Long scholarshipId, Long userId) {
+    Scholarship scholarship = scholarshipRepository.findById(scholarshipId).orElse(null);
+
+    User user;
+    try{
+        user = userRepo.findById(userId);
     }
+    catch (Exception e){
+        throw new RuntimeException("User not found");
+    }
+    ScholarshipDto dto = new ScholarshipDto();
+    dto.setId(scholarship.getId());
+    dto.setTitle(scholarship.getTitle());
+    dto.setDeadline(scholarship.getDeadline());
+    dto.setEligibility(scholarship.getEligibility());
+    dto.setDescription(scholarship.getDescription());
+    dto.setTags(scholarship.getTags().stream().map(Tag::getTag).collect(Collectors.toList()));
+    dto.setImageUrl(scholarship.getImageUrl());
+    dto.setLink(scholarship.getLink());
+
+    // Check if the user has applied to this scholarship
+    boolean isApplied = user.getAppliedScholarships().contains(scholarship);
+    dto.setIsApplied(isApplied);
+
+    return dto;
+
+}
+
+    @Transactional
+    public Page<ScholarshipDto> getPaginatedScholarships(Pageable pageable, Long userId) {
+        Page<Scholarship> scholarships = scholarshipRepository.findAll(pageable);
+
+        User user;
+        try{
+            user = userRepo.findById(userId);
+        }
+        catch (Exception e){
+            throw new RuntimeException("User not found");
+        }
+        return scholarships.map(scholarship -> {
+            ScholarshipDto dto = new ScholarshipDto();
+            dto.setId(scholarship.getId());
+            dto.setTitle(scholarship.getTitle());
+            dto.setDeadline(scholarship.getDeadline());
+            dto.setEligibility(scholarship.getEligibility());
+            dto.setDescription(scholarship.getDescription());
+            dto.setTags(scholarship.getTags().stream().map(Tag::getTag).collect(Collectors.toList()));
+            dto.setImageUrl(scholarship.getImageUrl());
+            dto.setLink(scholarship.getLink());
+
+            // Check if the user has applied to this scholarship
+            boolean isApplied = user.getAppliedScholarships().contains(scholarship);
+            dto.setIsApplied(isApplied);
+            return dto;
+        });
+    }
+
 
     public Scholarship createScholarship (Scholarship scholarship) {
         return scholarshipRepository.save(scholarship);

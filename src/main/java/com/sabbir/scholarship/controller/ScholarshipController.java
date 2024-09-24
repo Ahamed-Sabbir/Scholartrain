@@ -1,5 +1,6 @@
 package com.sabbir.scholarship.controller;
 
+import com.sabbir.scholarship.dto.ScholarshipDto;
 import com.sabbir.scholarship.model.Scholarship;
 import com.sabbir.scholarship.service.ScholarshipService;
 import com.sabbir.security.model.User;
@@ -28,15 +29,23 @@ public class ScholarshipController {
     }
 
     @GetMapping("/all")
-    public Page<Scholarship> getAllScholarships(@RequestParam(defaultValue = "0") int page,
-                                                @RequestParam(defaultValue = "10") int size) {
+    public Page<ScholarshipDto>  getAllScholarships(@RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "10") int size) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User student = userService.findUserByUsername(username);
+
         Pageable pageable = PageRequest.of(page, size);
-        return scholarshipService.getPaginatedScholarships(pageable);
+//        return scholarshipService.getPaginatedScholarships(pageable);
+        return scholarshipService.getPaginatedScholarships(pageable,student.getId());
     }
 
     @GetMapping("/{id}")
-    public Scholarship getScholarshipById(@PathVariable("id") Long id) {
-        return scholarshipService.getScholarshipById(id);
+    public ResponseEntity<ScholarshipDto>  getScholarshipById(@PathVariable("id") Long id) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User student = userService.findUserByUsername(username);
+
+        ScholarshipDto scholarshipDto = scholarshipService.getScholarshipById(id, student.getId());
+        return ResponseEntity.ok(scholarshipDto);
     }
 
     // Create scholarship (for ROLE_UNIVERSITY)

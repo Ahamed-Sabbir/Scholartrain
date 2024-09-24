@@ -21,7 +21,11 @@
         <span *ngFor="let tag of scholarship.tags" class="tag">{{ tag.tag }}</span>
       </div>
   
-      <a [href]="scholarship.link" target="_blank" class="apply-button">Apply Now</a>
+      <!-- <a [href]="scholarship.link" target="_blank" class="apply-button">Apply Now</a> -->
+      <button class="apply-button" *ngIf="!scholarship.isApplied" (click)="apply(scholarship.id)">Apply</button>
+      <button class="apply-button" *ngIf="scholarship.isApplied" disabled>Applied</button>
+
+
     </div>
   </div>
   
