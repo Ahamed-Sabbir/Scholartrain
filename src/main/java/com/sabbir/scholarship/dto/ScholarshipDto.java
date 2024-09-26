@@ -21,7 +21,7 @@ public class ScholarshipDto {
     private String link;
 
     private boolean isApplied;
-    public boolean isIsApplied() {
+    public boolean getIsApplied() {
         return isApplied;
     }
     public void setIsApplied(boolean isApplied) {

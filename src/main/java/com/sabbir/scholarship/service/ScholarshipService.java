@@ -34,34 +34,34 @@ public class ScholarshipService {
 //    public Scholarship getScholarshipById(Long id) {
 //        return scholarshipRepository.findById(id).orElse(null);
 //    }
-@Transactional
-public ScholarshipDto getScholarshipById(Long scholarshipId, Long userId) {
-    Scholarship scholarship = scholarshipRepository.findById(scholarshipId).orElse(null);
+    @Transactional
+    public ScholarshipDto getScholarshipById(Long scholarshipId, Long userId) {
+        Scholarship scholarship = scholarshipRepository.findById(scholarshipId).orElse(null);
 
-    User user;
-    try{
-        user = userRepo.findById(userId);
+        User user;
+        try{
+            user = userRepo.findById(userId);
+        }
+        catch (Exception e){
+            throw new RuntimeException("User not found");
+        }
+        ScholarshipDto dto = new ScholarshipDto();
+        dto.setId(scholarship.getId());
+        dto.setTitle(scholarship.getTitle());
+        dto.setDeadline(scholarship.getDeadline());
+        dto.setEligibility(scholarship.getEligibility());
+        dto.setDescription(scholarship.getDescription());
+        dto.setTags(scholarship.getTags().stream().map(Tag::getTag).collect(Collectors.toList()));
+        dto.setImageUrl(scholarship.getImageUrl());
+        dto.setLink(scholarship.getLink());
+
+        // Check if the user has applied to this scholarship
+        boolean isApplied = user.getAppliedScholarships().contains(scholarship);
+        dto.setIsApplied(isApplied);
+
+        return dto;
+
     }
-    catch (Exception e){
-        throw new RuntimeException("User not found");
-    }
-    ScholarshipDto dto = new ScholarshipDto();
-    dto.setId(scholarship.getId());
-    dto.setTitle(scholarship.getTitle());
-    dto.setDeadline(scholarship.getDeadline());
-    dto.setEligibility(scholarship.getEligibility());
-    dto.setDescription(scholarship.getDescription());
-    dto.setTags(scholarship.getTags().stream().map(Tag::getTag).collect(Collectors.toList()));
-    dto.setImageUrl(scholarship.getImageUrl());
-    dto.setLink(scholarship.getLink());
-
-    // Check if the user has applied to this scholarship
-    boolean isApplied = user.getAppliedScholarships().contains(scholarship);
-    dto.setIsApplied(isApplied);
-
-    return dto;
-
-}
 
     @Transactional
     public Page<ScholarshipDto> getPaginatedScholarships(Pageable pageable, Long userId) {

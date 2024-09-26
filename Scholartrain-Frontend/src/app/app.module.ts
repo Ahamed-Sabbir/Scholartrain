@@ -7,43 +7,43 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TimelineComponent } from './features/timeline/timeline.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { SignUpUniversityComponent } from './pages/sign-up-university/sign-up-university.component';
 import { TypeOfUserComponent } from './pages/type-of-user/type-of-user.component';
 import { TimelineUniversityComponent } from './features/timeline-university/timeline-university.component';
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { PostComponent } from './features/post/post.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ScholarshipDetailsComponent } from './features/scholarship-details/scholarship-details.component';
 import { CreateScholarshipComponent } from './features/create-scholarship/create-scholarship.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './services/auth.interceptor';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-@NgModule({ 
-    declarations: [
-        AppComponent,
-        NavbarComponent,
-        TimelineComponent,
-        FooterComponent,
-        SignInComponent,
-        SignUpComponent,
-        SignUpUniversityComponent,
-        TypeOfUserComponent,
-        TimelineUniversityComponent,
-        PostComponent,
-        ScholarshipDetailsComponent,
-        CreateScholarshipComponent,
-    ],
-    bootstrap: [AppComponent], 
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InfiniteScrollModule,
-    ], 
-    providers: [
-        provideHttpClient(withInterceptors([authInterceptor]))
-    ] 
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    TimelineComponent,
+    FooterComponent,
+    SignInComponent,
+    SignUpComponent,
+    SignUpUniversityComponent,
+    TypeOfUserComponent,
+    TimelineUniversityComponent,
+    PostComponent,
+    ScholarshipDetailsComponent,
+    CreateScholarshipComponent,
+],
+bootstrap: [AppComponent], 
+imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InfiniteScrollModule
+], 
+providers: [
+    provideHttpClient(withInterceptors([authInterceptor]))
+] 
 })
 export class AppModule { }
