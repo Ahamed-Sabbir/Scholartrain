@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ScholarshipService } from '../../services/scholarship.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface Scholarship {
   title: string;
@@ -8,34 +9,64 @@ interface Scholarship {
   imageUrl?: string;
   eligibility: string;
   link: string;
-  tags: string[]; // Ensure tags is an array of strings
+  tags: string[];
 }
+
+interface Tag{
+  name:string,
+}
+
+
 @Component({
   selector: 'app-create-scholarship',
   templateUrl: './create-scholarship.component.html',
-  styleUrl: './create-scholarship.component.scss'
+  styleUrls: ['./create-scholarship.component.scss']
 })
-export class CreateScholarshipComponent {
-  scholarship: Scholarship = {
-    title: '',
-    description: '',
-    eligibility: '',
-    deadline: new Date(),
-    tags: [],
-    imageUrl: '',
-    link: ''
-  };
+export class CreateScholarshipComponent implements OnInit {
+  scholarship!: Scholarship;
+  tags!: Tag[];
+  formGroup!: FormGroup;
+  selectedTags!:Tag[]
+
+  ngOnInit() {
+    this.tags = [
+      { name: 'Full Funded' },
+      { name: 'CSE' },
+      { name: 'EEE' },
+      { name: 'BBA' },
+      { name: 'Economics' }
+    ];
+
+    this.formGroup = new FormBuilder().group({
+      title: ['',Validators.required],
+      description: ['',Validators.required],
+      deadline: [new Date() ,Validators.required],
+      imageUrl: ['',Validators.required],
+      eligibility: ['',Validators.required],
+      link: ['',Validators.required],
+      selectedTags:[[],Validators.required],
+    });
+  }
 
   constructor(private scholarshipService: ScholarshipService) {}
 
   submitScholarship(): void {
-    // Prepare tags from comma-separated string
+    // Extract form values
+    const formValues = this.formGroup.value;
 
-    if (typeof this.scholarship.tags === 'string') {
-      this.scholarship.tags = (this.scholarship.tags as string).split(',').map(tag => tag.trim());
-  }
+    // Prepare the scholarship object
+    const newScholarship: Scholarship = {
+      title: formValues.title,
+      description: formValues.description,
+      eligibility: formValues.eligibility,
+      deadline: formValues.deadline,
+      imageUrl: formValues.imageUrl,
+      link: formValues.link,
+      tags: formValues.selectedTags.map((tag: Tag) => tag.name)
+    };
 
-    this.scholarshipService.createScholarship(this.scholarship).subscribe({
+    //calling backend using scholarship
+    this.scholarshipService.createScholarship(newScholarship).subscribe({
       next: (response) => {
         console.log('Scholarship created successfully:', response);
       },

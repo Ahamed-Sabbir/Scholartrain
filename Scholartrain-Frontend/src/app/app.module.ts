@@ -18,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './services/auth.interceptor';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ imports: [
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    MultiSelectModule,
+    BrowserAnimationsModule,
 ], 
 providers: [
     provideHttpClient(withInterceptors([authInterceptor]))
