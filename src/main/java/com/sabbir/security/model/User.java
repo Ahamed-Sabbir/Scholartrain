@@ -46,7 +46,9 @@ public class User {
     private Set<Scholarship> createdScholarships = new HashSet<>();
 
     // Scholarships applied by the student
-    @ManyToMany
+    @ManyToMany(
+            fetch = FetchType.LAZY
+    )
     @JoinTable(
             name = "applied_scholarships",
             joinColumns = @JoinColumn(name = "user_id"),

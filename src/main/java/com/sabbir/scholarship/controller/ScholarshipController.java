@@ -1,8 +1,12 @@
 package com.sabbir.scholarship.controller;
 
 import com.sabbir.scholarship.dto.ScholarshipDto;
+import com.sabbir.scholarship.dto.ScholarshipDtoStudents;
+import com.sabbir.scholarship.dto.ScholarshipDtoUniversity;
 import com.sabbir.scholarship.model.Scholarship;
+import com.sabbir.scholarship.model.Tag;
 import com.sabbir.scholarship.service.ScholarshipService;
+import com.sabbir.scholarship.service.TagService;
 import com.sabbir.security.model.User;
 import com.sabbir.security.service.UserService;
 import org.springframework.data.domain.Page;
@@ -23,14 +27,20 @@ import java.util.Set;
 public class ScholarshipController {
     private final ScholarshipService scholarshipService;
     private final UserService userService;
-    public ScholarshipController(ScholarshipService scholarshipService, UserService userService) {
+    private final TagService tagService;
+    public ScholarshipController(
+            ScholarshipService scholarshipService,
+            UserService userService,
+            TagService tagService
+    ) {
         this.scholarshipService = scholarshipService;
         this.userService = userService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/all")
-    public Page<ScholarshipDto>  getAllScholarships(@RequestParam(defaultValue = "0") int page,
-                                                    @RequestParam(defaultValue = "10") int size) {
+    public Page<ScholarshipDtoStudents>  getAllScholarships(@RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User student = userService.findUserByUsername(username);
 
@@ -44,21 +54,29 @@ public class ScholarshipController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User student = userService.findUserByUsername(username);
 
-        ScholarshipDto scholarshipDto = scholarshipService.getScholarshipById(id, student.getId());
-        return ResponseEntity.ok(scholarshipDto);
+        ScholarshipDtoStudents scholarshipDtoStudents = scholarshipService.getScholarshipById(id, student.getId());
+        return ResponseEntity.ok(scholarshipDtoStudents);
+    }
+
+    @GetMapping("/tags")
+    public ResponseEntity<List<Tag>>  getScholarshipTags() {
+        List<Tag> tags = tagService.getAllTags();
+
+        return ResponseEntity.ok(tags);
     }
 
     // Create scholarship (for ROLE_UNIVERSITY)
     @PostMapping("/create")
 //    @PreAuthorize("hasRole('ROLE_UNIVERSITY')")
-    public ResponseEntity<String> createScholarship(@RequestBody Scholarship scholarship) {
+    public ResponseEntity<?> createScholarship(@RequestBody Scholarship scholarship) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User university = userService.findUserByUsername(username);
 
         scholarship.setCreator(university); // Set the creator of the scholarship
+
         scholarshipService.createScholarship(scholarship);
 
-        return ResponseEntity.ok("Scholarship created successfully.");
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // Apply for a scholarship (for ROLE_STUDENT)
@@ -75,6 +93,8 @@ public class ScholarshipController {
 
         // Add the scholarship to the student's applied scholarships
         student.getAppliedScholarships().add(scholarship);
+//        scholarship.getAppliedStudents().add(student);
+
         userService.saveStudent(student);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -92,17 +112,17 @@ public class ScholarshipController {
     }
 
     // Get all scholarships created by the university (for ROLE_UNIVERSITY)
-    @GetMapping("/my-scholarships")
+    @GetMapping("/created")
 //    @PreAuthorize("hasRole('ROLE_UNIVERSITY')")
-    public ResponseEntity<List<Scholarship>> getMyScholarships() {
+    public ResponseEntity<List<ScholarshipDtoUniversity>> getMyScholarships() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User university = userService.findUserByUsername(username);
 
-        List<Scholarship> myScholarships = scholarshipService.findByCreator(university);
+        List<ScholarshipDtoUniversity> scholarshipDtoUniversities = scholarshipService.findByCreator(university);
 
-        if(myScholarships.isEmpty()) {
+        if(scholarshipDtoUniversities.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(myScholarships);
+        return ResponseEntity.ok(scholarshipDtoUniversities);
     }
 }

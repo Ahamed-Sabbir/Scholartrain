@@ -20,6 +20,7 @@ import { authInterceptor } from './services/auth.interceptor';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreatedScholarshipListComponent } from './features/created-scholarship-list/created-scholarship-list.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PostComponent,
     ScholarshipDetailsComponent,
     CreateScholarshipComponent,
+    CreatedScholarshipListComponent,
 ],
 bootstrap: [AppComponent], 
 imports: [

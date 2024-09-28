@@ -5,15 +5,16 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 interface Scholarship {
   title: string;
   description: string;
-  deadline: Date;
+  deadline: string;
   imageUrl?: string;
   eligibility: string;
   link: string;
-  tags: string[];
+  tags: Tag[];
 }
 
 interface Tag{
-  name:string,
+  id:number;
+  tag:string;
 }
 
 
@@ -27,21 +28,23 @@ export class CreateScholarshipComponent implements OnInit {
   tags!: Tag[];
   formGroup!: FormGroup;
   selectedTags!:Tag[]
+  defaultImageLink:string = "https://i.postimg.cc/gjr82W0v/scholarship.webp";
 
   ngOnInit() {
-    this.tags = [
-      { name: 'Full Funded' },
-      { name: 'CSE' },
-      { name: 'EEE' },
-      { name: 'BBA' },
-      { name: 'Economics' }
-    ];
+    this.scholarshipService.getScholarshipTags().subscribe({
+      next:(response)=>{
+        this.tags = response;
+      },
+      error: (response)=>{
+        alert("error getting the tags data");
+      }
+    });
 
     this.formGroup = new FormBuilder().group({
       title: ['',Validators.required],
       description: ['',Validators.required],
       deadline: [new Date() ,Validators.required],
-      imageUrl: ['',Validators.required],
+      imageUrl: [''],
       eligibility: ['',Validators.required],
       link: ['',Validators.required],
       selectedTags:[[],Validators.required],
@@ -59,19 +62,24 @@ export class CreateScholarshipComponent implements OnInit {
       title: formValues.title,
       description: formValues.description,
       eligibility: formValues.eligibility,
-      deadline: formValues.deadline,
+      deadline: new Date(formValues.deadline).toISOString(),
       imageUrl: formValues.imageUrl,
       link: formValues.link,
-      tags: formValues.selectedTags.map((tag: Tag) => tag.name)
+      tags: formValues.selectedTags,
     };
+    if(!newScholarship.imageUrl){
+      newScholarship.imageUrl = this.defaultImageLink;
+    }
+
+    console.log(newScholarship);
 
     //calling backend using scholarship
     this.scholarshipService.createScholarship(newScholarship).subscribe({
       next: (response) => {
-        console.log('Scholarship created successfully:', response);
+        console.log('Scholarship created successfully:');
       },
       error: (error) => {
-        console.error('Error creating scholarship:', error);
+        console.error('Error creating scholarship:');
       }
     });
   }

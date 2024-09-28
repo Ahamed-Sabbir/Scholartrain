@@ -20,11 +20,4 @@ public class ScholarshipDto {
     private String imageUrl;
     private String link;
 
-    private boolean isApplied;
-    public boolean getIsApplied() {
-        return isApplied;
-    }
-    public void setIsApplied(boolean isApplied) {
-        this.isApplied = isApplied;
-    }
 }

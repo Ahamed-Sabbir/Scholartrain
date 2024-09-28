@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,7 +23,7 @@ public class Scholarship {
     @Column(name = "scholarship_description")
     private String description;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "scholarship_tag",
             joinColumns = @JoinColumn(name = "scholarship_id"),
@@ -46,4 +43,10 @@ public class Scholarship {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator_id")
     private User creator;
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "appliedScholarships"
+    )
+    private List<User> appliedStudents = new ArrayList<>();
 }

@@ -1,6 +1,8 @@
 package com.sabbir.scholarship.service;
 
 import com.sabbir.scholarship.dto.ScholarshipDto;
+import com.sabbir.scholarship.dto.ScholarshipDtoStudents;
+import com.sabbir.scholarship.dto.ScholarshipDtoUniversity;
 import com.sabbir.scholarship.model.Scholarship;
 import com.sabbir.scholarship.model.Tag;
 import com.sabbir.scholarship.repository.ScholarshipRepository;
@@ -35,7 +37,7 @@ public class ScholarshipService {
 //        return scholarshipRepository.findById(id).orElse(null);
 //    }
     @Transactional
-    public ScholarshipDto getScholarshipById(Long scholarshipId, Long userId) {
+    public ScholarshipDtoStudents getScholarshipById(Long scholarshipId, Long userId) {
         Scholarship scholarship = scholarshipRepository.findById(scholarshipId).orElse(null);
 
         User user;
@@ -45,7 +47,7 @@ public class ScholarshipService {
         catch (Exception e){
             throw new RuntimeException("User not found");
         }
-        ScholarshipDto dto = new ScholarshipDto();
+        ScholarshipDtoStudents dto = new ScholarshipDtoStudents();
         dto.setId(scholarship.getId());
         dto.setTitle(scholarship.getTitle());
         dto.setDeadline(scholarship.getDeadline());
@@ -64,7 +66,7 @@ public class ScholarshipService {
     }
 
     @Transactional
-    public Page<ScholarshipDto> getPaginatedScholarships(Pageable pageable, Long userId) {
+    public Page<ScholarshipDtoStudents> getPaginatedScholarships(Pageable pageable, Long userId) {
         Page<Scholarship> scholarships = scholarshipRepository.findAll(pageable);
 
         User user;
@@ -75,7 +77,7 @@ public class ScholarshipService {
             throw new RuntimeException("User not found");
         }
         return scholarships.map(scholarship -> {
-            ScholarshipDto dto = new ScholarshipDto();
+            ScholarshipDtoStudents dto = new ScholarshipDtoStudents();
             dto.setId(scholarship.getId());
             dto.setTitle(scholarship.getTitle());
             dto.setDeadline(scholarship.getDeadline());
@@ -104,7 +106,24 @@ public class ScholarshipService {
     public List<Scholarship> findAll() {
         return scholarshipRepository.findAll();
     }
-     public List<Scholarship> findByCreator(User creator) {
-        return scholarshipRepository.findByCreator(creator);
-     }
+//     public List<Scholarship> findByCreator(User creator) {
+//        return scholarshipRepository.findByCreator(creator);
+//     }
+    @Transactional
+    public List<ScholarshipDtoUniversity> findByCreator(User creator) {
+        List<Scholarship> scholarships = scholarshipRepository.findByCreator(creator);
+        return scholarships.stream().map(scholarship -> {
+            ScholarshipDtoUniversity dto = new ScholarshipDtoUniversity();
+            dto.setId(scholarship.getId());
+            dto.setTitle(scholarship.getTitle());
+            dto.setDeadline(scholarship.getDeadline());
+            dto.setEligibility(scholarship.getEligibility());
+            dto.setDescription(scholarship.getDescription());
+            dto.setTags(scholarship.getTags().stream().map(Tag::getTag).collect(Collectors.toList()));
+            dto.setImageUrl(scholarship.getImageUrl());
+            dto.setLink(scholarship.getLink());
+            dto.setTotalApplied((long) scholarship.getAppliedStudents().size());
+            return dto;
+        }).collect(Collectors.toList());
+    }
 }
