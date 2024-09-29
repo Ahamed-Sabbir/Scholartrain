@@ -1,5 +1,8 @@
 package com.sabbir.scholarship.service;
 
+import com.sabbir.application.dto.ApplicationDto;
+import com.sabbir.application.model.Application;
+import com.sabbir.application.repository.ApplicationRepository;
 import com.sabbir.scholarship.dto.ScholarshipDto;
 import com.sabbir.scholarship.dto.ScholarshipDtoStudents;
 import com.sabbir.scholarship.dto.ScholarshipDtoUniversity;
@@ -22,9 +25,15 @@ import java.util.stream.Collectors;
 public class ScholarshipService {
     private final ScholarshipRepository scholarshipRepository;
     private final UserRepo userRepo;
-    public ScholarshipService(ScholarshipRepository scholarshipRepository, UserRepo userRepo) {
+    private final ApplicationRepository applicationRepository;
+    public ScholarshipService(
+            ScholarshipRepository scholarshipRepository,
+            UserRepo userRepo,
+            ApplicationRepository applicationRepository
+    ) {
         this.scholarshipRepository = scholarshipRepository;
         this.userRepo = userRepo;
+        this.applicationRepository = applicationRepository;
     }
 
     @Transactional
@@ -97,6 +106,29 @@ public class ScholarshipService {
 
     public Scholarship createScholarship (Scholarship scholarship) {
         return scholarshipRepository.save(scholarship);
+    }
+    public void applyForScholarship(Long scholarshipId, Long studentId, String filePath) {
+        Scholarship scholarship = scholarshipRepository.findById(scholarshipId).orElseThrow(() -> new RuntimeException("Scholarship not found"));
+        User student;
+        try {
+            student = userRepo.findById(studentId);
+        } catch (Exception e) {
+            throw new RuntimeException("Student not found");
+        }
+
+        Application application = new Application();
+        application.setScholarship(scholarship);
+        application.setStudent(student);
+        application.setFileUrl(filePath);
+
+        applicationRepository.save(application);
+    }
+
+    public List<ApplicationDto> getApplicationsForScholarship(Long scholarshipId) {
+        Scholarship scholarship = scholarshipRepository.findById(scholarshipId).orElseThrow(() -> new RuntimeException("Scholarship not found"));
+        return scholarship.getApplications().stream()
+                .map(app -> new ApplicationDto(app.getId(), app.getStudent().getProfileName(), app.getFileUrl()))
+                .collect(Collectors.toList());
     }
 
     public Scholarship findById(Long id) {

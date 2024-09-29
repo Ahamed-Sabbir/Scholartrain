@@ -21,17 +21,7 @@
         <span *ngFor="let tag of scholarship.tags" class="tag">{{ tag }}</span>
       </div>
 
-       <!-- File Upload Section -->
-      <div *ngIf="!scholarship.isApplied">
-        <h2>Apply for Scholarship</h2>
-        <input type="file" (change)="onFileSelected($event)">
-        <button class="apply-button" (click)="apply(scholarship.id)">Submit Application</button>
-      </div>
-
-      <!-- Disable button if already applied -->
-      <button class="apply-button" *ngIf="scholarship.isApplied" disabled>Applied</button>
-
-
     </div>
   </div>
-  
+
+  <app-applied-student-list></app-applied-student-list>

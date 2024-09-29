@@ -10,7 +10,7 @@ import { SignUpUniversityComponent } from './pages/sign-up-university/sign-up-un
 import { TypeOfUserComponent } from './pages/type-of-user/type-of-user.component';
 import { CreateScholarshipComponent } from './features/create-scholarship/create-scholarship.component';
 import { CreatedScholarshipListComponent } from './features/created-scholarship-list/created-scholarship-list.component';
-import { DummyComponent } from './features/dummy/dummy.component';
+import { CreatedScholarshipDetailsComponent } from './features/created-scholarship-details/created-scholarship-details.component';
 
 const routes: Routes = [
   {
@@ -35,8 +35,8 @@ const routes: Routes = [
     component:CreatedScholarshipListComponent
   },
   {
-    path:'dummy',
-    component:DummyComponent
+    path:'created-list-details',
+    component:CreatedScholarshipDetailsComponent
   },
   {
     path:'scholarship-details',

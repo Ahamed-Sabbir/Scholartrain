@@ -1,5 +1,6 @@
 package com.sabbir.scholarship.controller;
 
+import com.sabbir.application.dto.ApplicationDto;
 import com.sabbir.scholarship.dto.ScholarshipDto;
 import com.sabbir.scholarship.dto.ScholarshipDtoStudents;
 import com.sabbir.scholarship.dto.ScholarshipDtoUniversity;
@@ -17,8 +18,14 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Set;
 
@@ -82,9 +89,13 @@ public class ScholarshipController {
     // Apply for a scholarship (for ROLE_STUDENT)
     @PostMapping("/apply/{scholarshipId}")
     public ResponseEntity<?> applyForScholarship(
-            @PathVariable Long scholarshipId) {
+            @PathVariable Long scholarshipId, @RequestParam("file") MultipartFile file) throws IOException {
 
-        // Get the student user
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        // Save file
+        String filePath = System.getProperty("user.home") + "/Downloads/uploads/" + fileName;
+        Files.copy(file.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User student = userService.findUserByUsername(username);
 
@@ -93,11 +104,17 @@ public class ScholarshipController {
 
         // Add the scholarship to the student's applied scholarships
         student.getAppliedScholarships().add(scholarship);
-//        scholarship.getAppliedStudents().add(student);
-
         userService.saveStudent(student);
+        // Create an application record
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        scholarshipService.applyForScholarship(scholarshipId, student.getId(), filePath);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/{scholarshipId}/applications")
+    public ResponseEntity<List<ApplicationDto>> getScholarshipApplications(@PathVariable Long scholarshipId) {
+        List<ApplicationDto> applications = scholarshipService.getApplicationsForScholarship(scholarshipId);
+        return ResponseEntity.ok(applications);
     }
 
 

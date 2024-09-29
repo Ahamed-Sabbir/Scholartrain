@@ -1,7 +1,7 @@
 <div class="scholarship-list">
     <div *ngFor="let scholarship of scholarships" 
           class="scholarship-card" 
-          (click)="onCardClick(scholarship)">
+          (click)="onCardClick(scholarship.id)">
       <div class="scholarship-image">
         <img [src]="scholarship.imageUrl" alt="{{ scholarship.title }}" />
       </div>

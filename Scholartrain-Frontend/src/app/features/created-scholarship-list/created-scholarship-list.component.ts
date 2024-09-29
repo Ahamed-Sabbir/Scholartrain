@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScholarshipService } from '../../services/scholarship.service';
+import { Router } from '@angular/router';
 
 // Define the model for ScholarshipDtoUniversity
 interface ScholarshipDtoUniversity {
@@ -21,8 +22,12 @@ interface ScholarshipDtoUniversity {
 })
 export class CreatedScholarshipListComponent implements OnInit {
   scholarships: ScholarshipDtoUniversity[] = [];
+  scholarshipId:string = "scholarshipId";
 
-  constructor(private scholarshipService:ScholarshipService) {}
+  constructor(
+    private scholarshipService:ScholarshipService,
+    private router:Router
+  ) {}
 
   ngOnInit(): void {
     this.scholarshipService.getAllCreatedScholarships().subscribe({
@@ -35,11 +40,9 @@ export class CreatedScholarshipListComponent implements OnInit {
     });
   }
   // Function to handle click event on a scholarship card
-  onCardClick(scholarship: ScholarshipDtoUniversity): void {
-    // For now, just log the scholarship title (you can replace this with your desired action)
-    console.log(`Clicked on: ${scholarship.title}`);
-    // You can redirect to a details page, or trigger a modal popup here
-    // Example: this.router.navigate(['/scholarship-details', scholarship.id]);
+  onCardClick(id: number): void {
+    localStorage.setItem(this.scholarshipId, JSON.stringify(id));
+    this.router.navigate(['/created-list-details']);
   }
   formatDeadline(deadline: Date): string {
     return new Date(deadline).toLocaleDateString();

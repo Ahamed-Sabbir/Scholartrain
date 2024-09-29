@@ -1,5 +1,6 @@
 package com.sabbir.scholarship.model;
 
+import com.sabbir.application.model.Application;
 import com.sabbir.security.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -49,4 +50,7 @@ public class Scholarship {
             mappedBy = "appliedScholarships"
     )
     private List<User> appliedStudents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "scholarship", cascade = CascadeType.ALL)
+    private List<Application> applications = new ArrayList<>();
 }

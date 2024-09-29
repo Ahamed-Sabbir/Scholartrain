@@ -1,5 +1,6 @@
 package com.sabbir.security.model;
 
+import com.sabbir.application.model.Application;
 import com.sabbir.scholarship.model.Scholarship;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,10 @@ public class User {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Scholarship> createdScholarships = new HashSet<>();
 
+    // Scholarships created by the university
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Application> applications = new HashSet<>();
+
     // Scholarships applied by the student
     @ManyToMany(
             fetch = FetchType.LAZY
@@ -55,4 +60,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "scholarship_id")
     )
     private List<Scholarship> appliedScholarships = new ArrayList<>();
+
+
 }

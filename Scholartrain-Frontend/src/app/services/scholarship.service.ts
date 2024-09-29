@@ -17,6 +17,9 @@ export class ScholarshipService {
       .set('size', size);
     return this.httpClient.get<any>(`${this.apiUrl}/all`,{params});
   }
+  getAllApplicationDto(id:number):Observable<any>{
+    return this.httpClient.get<any>(`${this.apiUrl}/${id}/applications`);
+  }
 
   getScholarshipById(id:number): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/${id}`);
@@ -29,8 +32,13 @@ export class ScholarshipService {
     return this.httpClient.post(`${this.apiUrl}/create`, scholarship);
   }
 
-  applyToScholarship(id: number): Observable<any> {
-    return this.httpClient.post(`${this.apiUrl}/apply/${id}`, {});
+  applyToScholarship(id: number, formData: FormData): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}/apply/${id}`, formData);
+  }
+
+  /// Method to download the application file by applicationId
+  downloadApplicationFile(applicationId: number): Observable<Blob> {
+    return this.httpClient.get(`http://localhost:8080/applications/${applicationId}/download`, { responseType: 'blob' });
   }
 
   getAppliedScholarships(): Observable<any[]> {

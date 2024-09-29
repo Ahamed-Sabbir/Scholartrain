@@ -71,23 +71,23 @@ export class PostComponent implements OnInit {
       }
     }
   }
-  apply(scholarshipId:number){
-    this.scholarshipService.applyToScholarship(scholarshipId).subscribe({
-      next: (response)=>{
-        console.log(response);
-        alert("Applied to scholarship successfully!");
+  // apply(scholarshipId:number){
+  //   this.scholarshipService.applyToScholarship(scholarshipId).subscribe({
+  //     next: (response)=>{
+  //       console.log(response);
+  //       alert("Applied to scholarship successfully!");
 
-        const appliedScholarship = this.scholarships.find(s => s.id === scholarshipId);
-        if (appliedScholarship) {
-          appliedScholarship.isApplied = true;
-        }
-      },
-      error: (response)=>{
-        console.error(response);
-        alert("Failed to apply to scholarship.");
-      }
-    });
-  }
+  //       const appliedScholarship = this.scholarships.find(s => s.id === scholarshipId);
+  //       if (appliedScholarship) {
+  //         appliedScholarship.isApplied = true;
+  //       }
+  //     },
+  //     error: (response)=>{
+  //       console.error(response);
+  //       alert("Failed to apply to scholarship.");
+  //     }
+  //   });
+  // }
 
   likePost(id: number): void {
     console.log(`Liked post with ID: ${id}`);

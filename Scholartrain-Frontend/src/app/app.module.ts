@@ -21,7 +21,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatedScholarshipListComponent } from './features/created-scholarship-list/created-scholarship-list.component';
-import { DummyComponent } from './features/dummy/dummy.component';
+import { CreatedScholarshipDetailsComponent } from './features/created-scholarship-details/created-scholarship-details.component';
+import { AppliedStudentListComponent } from './features/applied-student-list/applied-student-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { DummyComponent } from './features/dummy/dummy.component';
     ScholarshipDetailsComponent,
     CreateScholarshipComponent,
     CreatedScholarshipListComponent,
-    DummyComponent,
+    CreatedScholarshipDetailsComponent,
+    AppliedStudentListComponent,
 ],
 bootstrap: [AppComponent], 
 imports: [
