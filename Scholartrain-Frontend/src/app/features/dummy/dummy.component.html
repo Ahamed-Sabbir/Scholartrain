@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>File Upload & Download</h2>
+  
+  <!-- File Upload Section -->
+  <div>
+    <input type="file" (change)="onFileSelected($event)" multiple>
+    <button (click)="uploadFiles()">Upload</button>
+  </div>
+  
+  <!-- Uploaded Files List Section -->
+  <div *ngIf="uploadedFiles.length > 0">
+    <h3>Uploaded Files:</h3>
+    <ul>
+      <li *ngFor="let file of uploadedFiles">
+        {{ file }}
+        <button (click)="downloadFile(file)">Download</button>
+      </li>
+    </ul>
+  </div>
+</div>
+  
