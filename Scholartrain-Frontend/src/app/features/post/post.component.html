@@ -1,0 +1,51 @@
+<div class="post-card-container" *ngFor="let scholarship of scholarships" infiniteScroll 
+     [infiniteScrollDistance]="scrollDistance" 
+     (scrolled)="onScroll()" 
+     [infiniteScrollUpDistance]="1" 
+     [infiniteScrollThrottle]="3000">
+  <div class="post-card">
+    <!-- Image Section -->
+    <div class="post-image" *ngIf="scholarship.imageUrl" (click)="viewDetails(scholarship.id)">
+      <img [src]="scholarship.imageUrl" alt="{{ scholarship.title }} image">
+    </div>
+
+    <!-- Post Content -->
+    <div class="post-content">
+      <!-- Post Header -->
+      <div class="post-header">
+        <h3 class="post-title" (click)="viewDetails(scholarship.id)">
+          {{ scholarship.title }}
+        </h3>
+        <span class="post-deadline">
+          Deadline: {{ scholarship.deadline | date }}
+        </span>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        <p><strong>Eligibility:</strong> {{ scholarship.eligibility }}</p>
+        <p>{{ scholarship.description | slice:0:60 }}... <a (click)="viewDetails(scholarship.id)">See Details</a></p>
+        <div class="post-tags">
+          <span *ngFor="let tag of scholarship.tags" class="tag">{{ tag }}</span>
+        </div>
+      </div>
+
+      <!-- Apply Button -->
+      <div class="apply-section">
+        <!-- <button class="apply-btn" (click)="apply(scholarship.id)">Apply Now</button> -->
+        <!-- <button class="apply-btn" *ngIf="!scholarship.isApplied" (click)="apply(scholarship.id)">Apply</button> -->
+        <button class="apply-btn" *ngIf="scholarship.isApplied" disabled>Applied</button>
+
+      </div>
+    </div>
+
+    <!-- Interaction Buttons -->
+    <div class="post-footer">
+      <div class="interactions">
+        <button class="like-btn" (click)="likePost(scholarship.id)">Like</button>
+        <button class="comment-btn" (click)="commentOnPost(scholarship.id)">Comment</button>
+        <button class="share-btn" (click)="sharePost(scholarship.id)">Share</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="scholarship-list">
+    <div *ngFor="let scholarship of scholarships" 
+          class="scholarship-card" 
+          (click)="onCardClick(scholarship.id)">
+      <div class="scholarship-image">
+        <img [src]="scholarship.imageUrl" alt="{{ scholarship.title }}" />
+      </div>
+      <div class="scholarship-info">
+        <h2 class="scholarship-title">{{ scholarship.title }}</h2>
+        <p class="total-applied">Total Applied: {{ scholarship.totalApplied }}</p>
+        <p class="deadline">Deadline: {{ formatDeadline(scholarship.deadline) }}</p>
+      </div>
+    </div>
+  </div>
+  

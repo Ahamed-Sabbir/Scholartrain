@@ -1,0 +1,15 @@
+<div class="applied-students-container">
+  <h2>List of Applicants</h2>
+
+  <div *ngIf="applicationDtos.length === 0">
+    <p>No applicants have applied for this scholarship yet.</p>
+  </div>
+
+  <div *ngFor="let applicant of applicationDtos" class="applicant-card">
+    <div class="card-content">
+      <h3>{{ applicant.studentName }}</h3>
+      <p>Application ID: {{ applicant.id }}</p>
+      <button (click)="downloadFile(applicant.id, applicant.studentName + '_application')">Download Application</button>
+    </div>
+  </div>
+</div>

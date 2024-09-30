@@ -1,0 +1,27 @@
+<!-- <div *ngIf="!scholarship">Loading...</div> -->
+<div class="scholarship-details" *ngIf="scholarship">
+    <div class="header">
+      <h1>{{ scholarship.title }}</h1>
+      <span class="deadline">Deadline: {{ scholarship.deadline | date:'mediumDate' }}</span>
+    </div>
+  
+    <div *ngIf="scholarship.imageUrl" class="image-container">
+      <img [src]="scholarship.imageUrl" alt="{{ scholarship.title }} image" class="scholarship-image" />
+    </div>
+  
+    <div class="content">
+      <h3>Eligibility</h3>
+      <p>{{ scholarship.eligibility }}</p>
+  
+      <h3>Description</h3>
+      <p>{{ scholarship.description }}</p>
+  
+      <h3>Tags</h3>
+      <div class="tags">
+        <span *ngFor="let tag of scholarship.tags" class="tag">{{ tag }}</span>
+      </div>
+
+    </div>
+  </div>
+
+  <app-applied-student-list></app-applied-student-list>

@@ -1,14 +1,28 @@
 spring:
   application:
     name : Scholartrain
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/Scholartrain
+#    username: postgres
+#    password: root
+
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/Scholartrain
-    username: postgres
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:scholartrain
+    username: root
     password: root
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 100000000MB
+      max-request-size: 100000000MB
 
 jwt:
   secret: 12345

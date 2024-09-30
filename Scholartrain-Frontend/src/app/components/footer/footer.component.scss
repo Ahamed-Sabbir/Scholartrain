@@ -1,0 +1,20 @@
+@import "../../../styles.scss";
+.copyright-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-color; // Use the same primary color as your main navbar
+  padding: 1rem 2rem;
+  color: white;
+  // position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 1000;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+
+  .copyright {
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+}
